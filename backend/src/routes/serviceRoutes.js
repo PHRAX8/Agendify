@@ -30,4 +30,29 @@ router.post("/", protectRoute, async (req,res) => {
     }
 });
 
+router.post("/", protectRoute, async (req, res) => {
+    try {
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 5;
+        const skip = (page - 1) * limit;
+        const services = await Service.find()
+        .sort({ createAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate("user", "username profileImage");
+
+        const totalServices =await Service.countDocuments();
+
+        res.send({
+            services,
+            currentService: service,
+            totalServices,
+            totalPages: Math.ceil(totalServices / limit),
+        });
+    } catch (error) {
+        console.log("Error in get all services route", error);
+        res.status(500).json({ message: "Internal server error"});
+    }
+});
+
 export default router;
