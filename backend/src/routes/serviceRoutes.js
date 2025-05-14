@@ -55,4 +55,31 @@ router.post("/", protectRoute, async (req, res) => {
     }
 });
 
+router.get("/user", protectRoute, async (req,res) => {
+    try {
+        const services = await Service.find({ user: req.user._id }).sort({ createdAt: -1});
+        res.json(services);
+    } catch (error) {
+        console.error("Get user services error:", error.message);
+        res.status(500).json({ message: "Server error"});
+    }
+});
+
+router.delete("/:id", protectRoute, async (req, res) => {
+    try {
+        const service = await Service.findById(req.params.id);
+        if(!service) return res.status(404).json({ message: "Service not found"});
+
+        if (service.user.toString() !== req.user._id.toString())
+            return res.status(401).json({ message: "Unauthorized"});
+
+        await service.deleteOne();
+
+        res.json({ message: "Service deleted successfully"});
+    } catch (error) {
+        console.log("Error deleting service", error);
+        res.status(500).json({ message: "Internal server error"});
+    }
+});
+
 export default router;
