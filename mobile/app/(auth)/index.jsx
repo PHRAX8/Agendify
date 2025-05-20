@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import styles from "../../assets/styles/login.styles";
 import { useState } from "react";
 import COLORS from '../../constants/colors';
@@ -82,6 +82,7 @@ export default function Login() {
                 </TouchableOpacity>
               </View>
             </View>
+            {/*Button*/}
             <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={isLoading}>
               {isLoading ? (
                 <ActivityIndicator color="#fff" />
@@ -89,7 +90,8 @@ export default function Login() {
                 <Text style={styles.buttonText}>Login</Text>
               )}
             </TouchableOpacity>
-
+            
+            {/*Footer*/}
             <View style={styles.footer}>
               <Text style={styles.footerText}>Dont't have an account?</Text>
               <Link href="/signup" asChild>
