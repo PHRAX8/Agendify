@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
-
 const serviceSchema = new mongoose.Schema({
     title:{
         type:String,
         required: true,
     },
-    description:{
+    caption:{
         type:String,
+        required: true,
+    },
+    price:{
+        type:Number,
         required: true,
     },
     client:{

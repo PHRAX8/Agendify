@@ -5,6 +5,7 @@ import styles from "../../assets/styles/create.styles";
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/colors';
 import { useAuthStore } from "../../store/authStore"
+import { Picker } from '@react-native-picker/picker';
 
 export default function Create() {
   const [title, setTitle] = useState("");
@@ -12,7 +13,12 @@ export default function Create() {
   const [price, setPrice] = useState("10.00");
   const [isLoading, setIsLoading] = useState(false);
   const [client, setClient] = useState("")
-  const [paymentMethod, setPaymentMethod] = useState("") // change to enum
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const PAYMENT_METHODS = [
+    { value: 'cash', label: 'Cash' },
+    { value: 'credit_card', label: 'Credit Card' },
+    { value: 'debit_card', label: 'Debit Card' },
+  ];
 
   const router = useRouter();
   const { token } = useAuthStore();
@@ -96,23 +102,28 @@ export default function Create() {
           </View>
 
           {/* Payment Method */}
-          <View style={styles.formGroup}>
-            <Text style={styles.label}>Your Payment method</Text>
-            <View style={styles.inputContainer}>
-                <Ionicons
-                  name="card-outline"
-                  size={20}
-                  color={COLORS.textSecondary}
-                  style={styles.inputIcon}
+          <View style={styles.inputContainer}>
+            <Ionicons
+              name="card-outline"
+              size={20}
+              color={COLORS.textSecondary}
+              style={styles.inputIcon}
+            />
+            <Picker
+              selectedValue={paymentMethod}
+              onValueChange={(itemValue) => setPaymentMethod(itemValue)}
+              style={styles.picker}
+              dropdownIconColor={COLORS.textSecondary}
+            >
+              <Picker.Item label="Select payment method..." value="" />
+              {PAYMENT_METHODS.map((method) => (
+                <Picker.Item 
+                  key={method.value} 
+                  label={method.label} 
+                  value={method.value} 
                 />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter payment method"
-                  placeholderTextColor={COLORS.placeholderText}
-                  value={paymentMethod}
-                  onChangeText={setPaymentMethod}
-                />
-              </View>
+              ))}
+            </Picker>
           </View>
 
           {/* Price */}
@@ -130,7 +141,12 @@ export default function Create() {
                   placeholder="Enter price"
                   placeholderTextColor={COLORS.placeholderText}
                   value={price}
-                  onChangeText={setPrice}
+                  onChangeText={(text) => {
+                  // Allow only numbers and a single decimal point
+                  if (/^\d*\.?\d*$/.test(text)) {
+                    setPrice(text);
+                  }}}
+                  keyboardType="decimal-pad"
                 />
               </View>
           </View>
