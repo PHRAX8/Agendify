@@ -23,7 +23,7 @@ router.post("/", protectRoute, async (req,res) => {
 
         await service.save();
 
-        res.status(201).json(newService);
+        res.status(201).json(service);
 
     } catch (error) {
         console.log("Error creating Service", error);
