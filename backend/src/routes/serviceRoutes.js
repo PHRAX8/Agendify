@@ -6,15 +6,16 @@ const router = express.Router();
 
 router.post("/", protectRoute, async (req,res) => {
     try {
-        const { title,description,client,paymentMethod,user} = req.body
+        const { title, caption, price, client, paymentMethod, user} = req.body
         
-        if (!title || !description || !client || !paymentMethod || !user) {
+        if (!title || !caption || !client || !price || !paymentMethod || !user) {
             return res.status(400).json({ message: "Please provide all fields"});
         }
             
         const service = new Service({
             title,
-            description,
+            caption,
+            price,
             client,
             paymentMethod,
             user: req.user._id,

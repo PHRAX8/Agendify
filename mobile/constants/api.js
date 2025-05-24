@@ -1,0 +1,1 @@
+export const api = "https://agendify-ov1e.onrender.com";
