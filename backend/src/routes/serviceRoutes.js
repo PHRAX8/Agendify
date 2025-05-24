@@ -21,7 +21,7 @@ router.post("/", protectRoute, async (req,res) => {
             user: req.user._id,
         });
 
-        await newService.save();
+        await service.save();
 
         res.status(201).json(newService);
 

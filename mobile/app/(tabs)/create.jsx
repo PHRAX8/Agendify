@@ -42,14 +42,6 @@ export default function Create() {
         }),
       })
 
-      //const rawResponse = await response.text();
-      //console.log("Raw API response:", rawResponse);
-      //console.log("t:", title);
-      //console.log("c:", caption);
-      //console.log("p:", price);
-      //console.log("cl:", client);
-      //console.log("pm:", paymentMethod);
-
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Something went wrong");
 
