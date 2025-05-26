@@ -1,1 +1,1 @@
-export const api = "https://agendify-ov1e.onrender.com";
+export const API_URL = "https://agendify-ov1e.onrender.com";

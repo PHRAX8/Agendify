@@ -40,7 +40,7 @@ router.post("/", protectRoute, async (req, res) => {
         .sort({ createAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate("user", "username profileImage");
+        .populate("user", "username");
 
         const totalServices =await Service.countDocuments();
 

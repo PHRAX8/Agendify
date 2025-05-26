@@ -73,25 +73,25 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginLeft: 8,
   },
-  booksHeader: {
+  servicesHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 16,
   },
-  booksTitle: {
+  servicesTitle: {
     fontSize: 18,
     fontWeight: "700",
     color: COLORS.textPrimary,
   },
-  booksCount: {
+  servicesCount: {
     fontSize: 14,
     color: COLORS.textSecondary,
   },
-  booksList: {
+  servicesList: {
     paddingBottom: 20,
   },
-  bookItem: {
+  serviceItem: {
     flexDirection: "row",
     backgroundColor: COLORS.cardBackground,
     borderRadius: 12,
@@ -105,17 +105,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
   },
-  bookImage: {
+  serviceImage: {
     width: 70,
     height: 100,
     borderRadius: 8,
     marginRight: 12,
   },
-  bookInfo: {
+  serviceInfo: {
     flex: 1,
     justifyContent: "space-between",
   },
-  bookTitle: {
+  serviceTitle: {
     fontSize: 16,
     fontWeight: "600",
     color: COLORS.textPrimary,
@@ -125,13 +125,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 4,
   },
-  bookCaption: {
+  serviceCaption: {
     fontSize: 14,
     color: COLORS.textDark,
     marginBottom: 4,
     flex: 1,
   },
-  bookDate: {
+  serviceDate: {
     fontSize: 12,
     color: COLORS.textSecondary,
   },

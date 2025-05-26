@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     textAlign: "center",
   },
-  bookCard: {
+  serviceCard: {
     backgroundColor: COLORS.cardBackground,
     borderRadius: 16,
     marginBottom: 20,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
   },
-  bookHeader: {
+  serviceHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: COLORS.textPrimary,
   },
-  bookImageContainer: {
+  serviceImageContainer: {
     width: "100%",
     height: 200,
     borderRadius: 12,
@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: COLORS.border,
   },
-  bookImage: {
+  serviceImage: {
     width: "100%",
     height: "100%",
   },
-  bookDetails: {
+  serviceDetails: {
     padding: 4,
   },
-  bookTitle: {
+  serviceTitle: {
     fontSize: 18,
     fontWeight: "700",
     color: COLORS.textPrimary,
