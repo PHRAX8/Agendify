@@ -31,7 +31,7 @@ router.post("/", protectRoute, async (req,res) => {
     }
 });
 
-router.get("/", protectRoute, async (req, res) => {
+router.post("/", protectRoute, async (req, res) => {
     try {
         const page = req.query.page || 1;
         const limit = req.query.limit || 5;
