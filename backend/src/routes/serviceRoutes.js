@@ -37,7 +37,7 @@ router.get("/", protectRoute, async (req, res) => {
         const limit = req.query.limit || 5;
         const skip = (page - 1) * limit;
         const services = await Service.find()
-        .sort({ createAt: -1 })
+        .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
         .populate("user", "username");
