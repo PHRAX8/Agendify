@@ -46,7 +46,7 @@ router.post("/", protectRoute, async (req, res) => {
 
         res.send({
             services,
-            currentService: service,
+            currentService: services,
             totalServices,
             totalPages: Math.ceil(totalServices / limit),
         });
