@@ -27,8 +27,8 @@ export default function Home() {
       setServices((prevServices) => [...prevServices, ...data.services]);
 
       setHasMore(pageNum < data.totalPages);
-
       setPage(pageNum);
+
     } catch (error) {
       console.log("Error fetching services", error);
     } finally {
@@ -48,8 +48,10 @@ export default function Home() {
   const renderItem = ({ item }) => (
     <View style={styles.serviceCard}>
       <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.caption}>{item.caption}</Text>
       <Text style={styles.price}>R$ {item.price}</Text>
       <Text style={styles.client}>{item.client}</Text>
+      <Text style={styles.paymentMethod}>{item.paymentMethod}</Text>
     </View>
   )
 
