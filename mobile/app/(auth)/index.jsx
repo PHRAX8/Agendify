@@ -25,11 +25,12 @@ export default function Login() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.container} style={styles.scrollViewStyle}>
-        <View style={styles.container}>
+        {/*<View style={styles.container}>*/}
+        <View>
           {/*Image*/}
           <View style={styles.topIllustration}>
             <Image
-              source={require("../../assets/images/i.svg")}
+              source={require("../../assets/images/i.png")}
               style={styles.illustrationImage}
               resizeMode="contain"
             />

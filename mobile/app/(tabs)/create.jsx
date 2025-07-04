@@ -6,13 +6,14 @@ import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/colors';
 import { useAuthStore } from "../../store/authStore"
 import { Picker } from '@react-native-picker/picker';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function Create() {
   const [title, setTitle] = useState("");
   const [caption, setCaption] = useState(""); // maybe change to enum
   const [price, setPrice] = useState("10.00");
   const [isLoading, setIsLoading] = useState(false);
-  const [client, setClient] = useState("")
+  const [client, setClient] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const PAYMENT_METHODS = [
     { value: 'cash', label: 'Cash' },
@@ -109,21 +110,22 @@ export default function Create() {
               color={COLORS.textSecondary}
               style={styles.inputIcon}
             />
-            <Picker
-              selectedValue={paymentMethod}
-              onValueChange={(itemValue) => setPaymentMethod(itemValue)}
-              style={styles.picker}
-              dropdownIconColor={COLORS.textSecondary}
-            >
-              <Picker.Item label="Select payment method..." value="" />
-              {PAYMENT_METHODS.map((method) => (
-                <Picker.Item 
-                  key={method.value} 
-                  label={method.label} 
-                  value={method.value} 
-                />
-              ))}
-            </Picker>
+            <RNPickerSelect
+              onValueChange={(value) => setPaymentMethod(value)}
+              items={PAYMENT_METHODS}
+              placeholder={{
+                label: "Select payment method...",
+                value: null,
+                color: COLORS.placeholderText,
+              }}
+              value={paymentMethod}
+              style={{
+                inputIOS: styles.picker,
+                inputAndroid: styles.picker,
+                placeholder: { color: COLORS.placeholderText },
+              }}
+              useNativeAndroidPickerStyle={false} // Ensures consistent styling
+            />
           </View>
 
           {/* Price */}

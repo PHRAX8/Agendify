@@ -31,7 +31,7 @@ export default function Signup() {
           {/*Header*/}
           <View style={styles.header}>
             <Text style={styles.title}>Agendify📝</Text>
-            <Text style={styles.subtitle}>Customize your Business</Text>
+            <Text style={styles.subtitle}>Never Forget your Business</Text>
           </View>
 
           <View style={styles.formContainer}>
