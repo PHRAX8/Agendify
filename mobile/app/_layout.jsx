@@ -3,20 +3,20 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import SafeScreen from "../components/SafeScreen";
 import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "../store/authStore";
+import { useEffect } from "react";
 
 export default function RootLayout() {
   const segments = useSegments();
-  const { user, token } = useAuthStore();
+  const { checkAuth, user, token } = useAuthStore();
 
   const inAuthScreen = segments[0] === "(auth)";
   const isSignedIn = user && token;
 
   if (!isSignedIn && !inAuthScreen) {
-    return <Redirect href="/(auth)" />;
-  }
-
+  return <Redirect href="/(auth)" />;
+  }   
   if (isSignedIn && inAuthScreen) {
-    return <Redirect href="/(tabs)" />;
+  return <Redirect href="/(tabs)" />;
   }
   return (
       <SafeAreaProvider>

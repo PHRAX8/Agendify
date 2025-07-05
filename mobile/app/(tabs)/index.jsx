@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, RefreshControl } from 'react-native'
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, RefreshControl, Alert } from 'react-native'
 import { useAuthStore } from '../../store/authStore'
 import { useEffect, useState } from 'react';
 
@@ -17,6 +17,7 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [deletedServiceId, setDeleteServiceId] = useState(null);
 
   const fetchServices = async (pageNum=1, refresh=false) => {
     try {
@@ -63,6 +64,33 @@ export default function Home() {
     }
   };
 
+  const handleDeleteService = async (serviceId) => {
+    setDeleteServiceId(serviceId);
+    try {
+      const response = await fetch(`https://agendify-ov1e.onrender.com/api/service/${serviceId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      })
+
+      const data = await response.json();
+      if(!response.ok) throw new Erroe(data.message || "Failed to delete service");
+
+      setServices(services.filter((service) => service._id !== serviceId));
+      Alert.alert("Success", "Recommendation deleted successfully");
+    } catch (error) {
+      Alert.alert("Error", error.message || "Failed to delete service");
+    } finally {
+      setDeleteServiceId(null);
+    }
+  };
+
+  const confirmDelete = (serviceId) => {
+    Alert.alert("Delete Service", "Are you sure you want to delete this service? This action can't be undone!", [
+      {text: "Cancel", style: "cancel"},
+      {text: "Delete", style: "destructive", onPress: () => handleDeleteService(serviceId)},
+    ]);
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.serviceCard}>
       <Text style={styles.title}>{item.title}</Text>
@@ -71,6 +99,10 @@ export default function Home() {
       <Text style={styles.price}>R$ {item.price}</Text>
       <Text style={styles.client}>{item.client}</Text>
       <Text style={styles.paymentMethod}>{item.paymentMethod}</Text>
+        
+      <TouchableOpacity style={styles.deleteButton} onPress={() => confirmDelete(item._id)}>
+        {deletedServiceId === item._id ? (<ActivityIndicator size="small" color={COLORS.primary}/>) : (<Ionicons name="trash-outline" size={20} color={COLORS.primary}/>)}
+      </TouchableOpacity>
     </View>
   )
 
@@ -113,7 +145,9 @@ export default function Home() {
           <View style={styles.emptyContainer}>
             <Ionicons name="reader-outline" size={60} color={COLORS.textSecondary}/>
             <Text style={styles.emptyText}>No Services yet</Text>
-            <Text style={styles.emptySubtext}>Start right Now!</Text>
+            <TouchableOpacity style={styles.addButton} onPress={() => router.push("/create")}>
+              <Text style={styles.addButtonText}>Start right Now!</Text>
+            </TouchableOpacity>
           </View>
         }
       />
