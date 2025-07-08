@@ -31,14 +31,19 @@ export default function Home() {
       const data = await response.json();
       if(!response.ok) throw new Error(data.message || "Failed to fetch services");
 
-      //setServices((prevServices) => [...prevServices, ...data.services]);
-
-      const uniqueServices = 
-        refresh || pageNum === 1
-          ? data.services
-          : Array.from(new Set([...services, ...data.services].map((service) => service._id))).map((id) => [...services, data.services].find((service) => service._id === id));
       
-          setServices(uniqueServices);
+      const validServices = data.services?.filter(service => service?._id) || [];
+    
+    setServices(prev => {
+      if (refresh || pageNum === 1) {
+        return validServices;
+      }
+      // Merge and deduplicate
+      const merged = [...prev, ...validServices];
+      return merged.filter((service, index, self) => 
+        index === self.findIndex(s => s._id === service._id)
+      );
+    });
 
       setHasMore(pageNum < data.totalPages);
       setPage(pageNum);
