@@ -36,19 +36,20 @@ router.get("/", protectRoute, async (req, res) => {
         const page = req.query.page || 1;
         const limit = req.query.limit || 5;
         const skip = (page - 1) * limit;
-        const services = await Service.find()
+        const total = await Service.countDocuments({ user: req.user.id });
+        const services = await Service.find({ user: req.user.id })
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
         .populate("user", "username");
 
-        const totalServices =await Service.countDocuments();
+        //const totalServices =await Service.countDocuments();
 
         res.send({
             services,
             currentService: services,
-            totalServices,
-            totalPages: Math.ceil(totalServices / limit),
+            total,
+            totalPages: Math.ceil(total / limit),
         });
     } catch (error) {
         console.log("Error in get all services route", error);

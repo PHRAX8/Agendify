@@ -78,7 +78,7 @@ export default function Home() {
       })
 
       const data = await response.json();
-      if(!response.ok) throw new Erroe(data.message || "Failed to delete service");
+      if(!response.ok) throw new Error(data.message || "Failed to delete service");
 
       setServices(services.filter((service) => service._id !== serviceId));
       Alert.alert("Success", "Recommendation deleted successfully");
